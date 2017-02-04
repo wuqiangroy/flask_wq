@@ -8,15 +8,11 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
+    SECRET_KEY = 'hard to guess string'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     WQ_MAIL_SUBJECT_PREFIX = '[WQ]'
     WQ_MAIL_SENDER = 'WQ Admin<wuqiangroy@live.com>'
     WQ_ADMIN = os.environ.get('WQ_ADMIN') or 'wuqiangroy@live.com'
-    WQ_COMMENTS_PER_PAGE = 30
-    WQ_POSTS_PER_PAGE = 20
-    WQ_FOLLOWERS_PER_PAGE = 50
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
     @staticmethod
     def init_app(app):
@@ -51,4 +47,5 @@ config = {
     'production': ProductionConfig,
 
     'default': DevelopmentConfig,
+
 }
