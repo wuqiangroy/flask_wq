@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}WQ-HOME{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>您好，
+        {% if current_user.is_authenticated %}
+        {{ current_user.username }}
+        {% else %}
+        陌生人！
+        {% endif %}!
+    </h1>
+</div>
+
+<ul class="posts">
+    {% for post in posts %}
+    <li class="post">
+
+        <div class="post-title">
+            <a href="{{ url_for('main.post', id=post.id)}}"><h3>{{ post.title }}</h3></a>
+        </div>
+        <div class="post-date">{{ moment(post.timestamp).format('LLL') }}</div>
+        <!--<div class="post-thumbnail">
+            <a href="{{ url_for('.user', username=post.author.username) }}">
+              <img class="img-rounded profile-thumbnail"
+                               src="{{ post.author.gravatar(size=40) }}">
+            </a>
+        </div>-->
+        <div class="post-author">
+            <a href="{{ url_for('.user', username=post.author.username) }}">
+                {{ post.author.username }}
+            </a>
+            <br/>
+
+        </div>
+
+    </li>
+    {% endfor %}
+
+</ul>
+<br/>
+<br/>
+<br/>
+<div>
+    <p>现在时间是： {{ moment(current_time).format('LLL') }}.</p>
+    <p>上次刷新时间： {{ moment(current_time).fromNow(refresh=True) }}</p>
+</div>
+{% endblock %}
+
+
+

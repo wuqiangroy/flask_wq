@@ -1,0 +1,32 @@
+<ul class="posts">
+    {% for post in posts %}
+    <li class="post">
+        <!--
+        <div class="post-thumbnail">
+        <a href="{{ url_for('.user', username=post.author.username) }}">
+                <img class="img-rounded profile-thumbnail" src="{{ post.author.gravatar(size=40) }}">
+            </a>
+        </div>
+        -->
+        <div class="post-content">
+            <a href="{{ url_for('main.post', id=post.id)}}"><h3>{{ post.title }}</h3></a>
+
+        <div class="post-date">{{ moment(post.timestamp).format('LLL') }}</div>
+            <br/>
+        </div><!--
+        <div class="post-body">
+                {% if post.body_html %}
+                    {{ post.body_html | safe }}
+                {% else %}
+                    {{ post.body }}
+                {% endif %}
+        </div>
+        <div class="post-thumbnail">
+            <a href="{{ url_for('.user', username=post.author.username) }}">
+              <img class="img-rounded profile-thumbnail"
+                               src="{{ post.author.gravatar(size=40) }}">
+            </a>
+        </div>-->
+    </li>
+    {% endfor %}
+</ul>
