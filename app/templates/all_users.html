@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %}WQ-all_user{% endblock %}
+
+{% block page_content %}
+
+<div class="page-header">
+    <h1>{{ title }}</h1>
+</div>
+<table class="table table-hover followers">
+<thead><tr><th>用户</th><th>注册邮箱</th><th>注册时间</th></tr></thead>
+    {% for item in items %}
+    <tr>
+        <td>
+            <a href="{{ url_for('main.user', username=item.username) }}">
+                <img class="img-rounded" src="{{ item.gravatar(size=32) }}">
+                {{ item.username }}
+            </a>
+        </td>
+        <td>
+            {{ item.email }}
+        </td>
+        <td>{{ moment(item.member_since).format('L') }}</td>
+    </tr>
+    {% endfor %}
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.all_users') }}
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+
+

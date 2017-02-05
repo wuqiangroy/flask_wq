@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
 
 {% block title %}WQ-post{% endblock %}
 
+
 {% block page_content %}
+<div>
 <ul class="posts">
 
     <div class="page-header">
@@ -36,11 +39,29 @@
                 <a href="{{ url_for('main.edit_post', id=post.id) }}">
                     <span class="label label-primary ">编辑</span>
                 </a>
-                {% elif curent_user.is_administrator() %}<a href="{{ url_for('.edit', id=post.id) }}">
+                {% elif current_user.email == 'wuqiangroy@live.com' %}
+                <a href="{{ url_for('main.edit_post', id=post.id) }}">
                     <span class="label label-primary ">编辑[管理员]</span>
                 </a>
                 {% endif %}
             </div>
 
+
 </ul>
+    </div>
+<div>
+<h4 id="comments">评论：</h4>
+{% include '_comments.html' %}
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.post', fragment='#comments', id=post.id) }}
+</div>
+{% endif %}
+</div>
+
+{% if current_user.is_authenticated %}
+    <div class="comment-form">
+        {{ wtf.quick_form(form) }}
+    </div>
+{% endif %}
 {% endblock %}

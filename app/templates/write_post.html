@@ -8,20 +8,19 @@
 {{ pagedown.include_pagedown() }}
 {% endblock %}
 
+
 {% block page_content %}
 <div class="page-header">
-    <h1>发布文章</h1>
+    <div>
+        <h4>温馨提示：请使用Markdown语法发布文章，Markdown语法请参考：
+            <a href="http://xianbai.me/learn-md/article/about/helloworld.html">
+            Markdown语法</a>
+        </h4>
+    </div>
+        <h1>发布文章</h1>
 </div>
-<div class="col-lg-11">
-    <!--
-    {{ wtf.form_field(form.title) }}
-    <br/>
-    <h3>body</h3>
-    {{ form.body(class="ckeditor") }}
-    <br/>
 
-    {{ wtf.form_field(form.submit) }}
-    -->
+<div class="col-lg-11">
     {{ wtf.quick_form(form) }}
 </div>
 {% endblock %}
