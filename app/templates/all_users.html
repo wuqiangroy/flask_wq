@@ -24,6 +24,7 @@
         <td>{{ moment(item.member_since).format('L') }}</td>
     </tr>
     {% endfor %}
+</table>
 {% if pagination %}
 <div class="pagination">
     {{ macros.pagination_widget(pagination, '.all_users') }}
