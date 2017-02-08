@@ -19,12 +19,11 @@
             </a>
         </td>
         <td>
-            {{ item.email }}
+            <a href="mailto:{{ item.email }}">{{ item.email }}</a>
         </td>
         <td>{{ moment(item.member_since).format('L') }}</td>
     </tr>
     {% endfor %}
-</table>
 {% if pagination %}
 <div class="pagination">
     {{ macros.pagination_widget(pagination, '.all_users') }}
