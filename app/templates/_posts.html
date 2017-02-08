@@ -9,7 +9,7 @@
         </div>
         -->
         <div class="post-content">
-            <a href="{{ url_for('main.post', id=post.id)}}"><h3>{{ post.title }}</h3></a>
+            <a href="{{ url_for('main.post', id=post.id)}}"><h4>{{ post.title }}</h4></a>
 
         <div class="post-date">{{ moment(post.timestamp).format('LLL') }}</div>
             <br/>

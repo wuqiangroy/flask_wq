@@ -19,7 +19,7 @@
         {% endif %}
     {% endif %}
 
-    {% if current_user.is_administrator() %}
+    {% if current_user.email == 'wuqiangroy@live.com' %}
     <p>
         <a href="mailto:{{ user.email }}">{{ user.email }}</a>
     </p>
