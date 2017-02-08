@@ -269,6 +269,26 @@ def all_users():
                            items=items)
 
 
+@main.route('/edit_comment/<int:id>', methods=['get', 'POST'])
+@login_required
+def edit_comment(id):
+    comment = Comment.query.get_or_404(id)
+    form = CommentForm()
+    if current_user.username != comment.author.username \
+            and current_user.email != 'wuqiangroy@live.com':
+        flash(u'您没有权限修改此评论！')
+        return redirect(url_for('.post', id=comment.post.id))
+    if form.validate_on_submit():
+        comment.body = form.body.data
+        db.session.add(comment)
+        db.session.commit()
+        print comment.post
+        flash(u'评论修改成功！')
+        return redirect(url_for('.post', id=comment.post.id))
+    form.body.data = comment.body
+    return render_template('edit_comment.html', form=form)
+
+
 @main.after_app_request
 def after_request(response):
     for query in get_debug_queries():
