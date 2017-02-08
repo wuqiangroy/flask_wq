@@ -30,7 +30,7 @@ def login():
         if user is not None and user.verity_password(form.password.data):
             login_user(user, form.remember_me.data)
             return redirect(request.args.get('next') or url_for('main.index'))
-        flash('用户名或密码错误')
+        flash(u'用户名或密码错误')
     return render_template('auth/login.html', form=form)
 
 
@@ -38,7 +38,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('您已经退出！')
+    flash(u'您已经退出！')
     return redirect(url_for('main.index'))
 
 
@@ -52,7 +52,7 @@ def register():
                     password=form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('现在可以登陆！')
+        flash(u'现在可以登陆！')
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', form=form)
 
@@ -66,10 +66,10 @@ def change_password():
             current_user.password = form.new_password.data
             db.session.add(current_user)
             db.session.commit()
-            flash('密码已更改！')
-            return redirect(url_for('auth.login'))
+            flash(u'密码已更改！')
+            return redirect(url_for('auth.logout'))
         else:
-            flash('密码错误！')
+            flash(u'密码错误！')
     return render_template('auth/change_password.html', form=form)
 
 
@@ -81,8 +81,8 @@ def change_email():
         if current_user.verity_password(form.password.data):
             current_user.email = form.new_email.data
             db.session.add(current_user)
-            db.sessiom.commit()
-            flash('邮箱已更改！')
+            db.session.commit()
+            flash(u'邮箱已更改！')
             return redirect(url_for('main.index'))
     return render_template('auth/change_email.html', form=form)
 
@@ -91,16 +91,16 @@ def change_email():
 def reset_password():
     form = ResetPasswordForm()
     if form.validate_on_submit():
-        email = User.query.filter_by(form.email.data).first()
-        username = User.query.filter_by(form.username.data).first()
+        email = User.query.filter_by(email=form.email.data).first()
+        username = User.query.filter_by(username=form.username.data).first()
         if email is not None and username is not None:
             user = User(password=form.new_password.data)
             db.session.add(user)
             db.session.commit()
-            flash('密码已重置！')
+            flash(u'密码已重置！')
             return redirect(url_for('auth.login'))
         else:
-            flash('邮箱或用户名错误！')
+            flash(u'邮箱或用户名错误！')
     return render_template('auth/reset_password.html', form=form)
 
 
