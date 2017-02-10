@@ -91,11 +91,11 @@ def change_email():
 def reset_password():
     form = ResetPasswordForm()
     if form.validate_on_submit():
-        email = User.query.filter_by(email=form.email.data).first()
-        username = User.query.filter_by(username=form.username.data).first()
-        if email is not None and username is not None:
-            user = User(password=form.new_password.data)
-            db.session.add(user)
+        user1 = User.query.filter_by(email=form.email.data).first()
+        user2 = User.query.filter_by(username=form.username.data).first()
+        if user1 is not None and user2 is not None and user1 is user2:
+            user1.password = form.new_password.data
+            db.session.add(user1)
             db.session.commit()
             flash(u'密码已重置！')
             return redirect(url_for('auth.login'))
